@@ -2,6 +2,7 @@ const container = document.getElementById('cards-container');
 const apiUrl = 'http://54.220.202.86:8080/api/shipments/getdata';
 const proxyUrl = 'http://localhost:3000/proxy?url=';
 
+
 // Function to handle card click event
 function handleCardClick(shipmentId) {
     window.location.href = `https://example.com/shipment/${shipmentId}`; // Replace example.com with your actual domain
