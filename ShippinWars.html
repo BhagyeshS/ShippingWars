@@ -3,10 +3,30 @@
 <html lang="en">
 <head>
     <!-- ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Shipment Tracker</title>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-logo" onclick="AllShipments()">
+                <img src="./logo.png" height="90vh" width="100vw" alt="">
+            </div>
+            <ul class="navbar-menu">
+                <li onclick="AllShipments()"><a href="#">Home</a></li>
+                <li><a href="#">Add Shipments</a></li>
+                <li><a href="#">contact</a></li>
+                <li><a href="#"></a>User Details</li>
+            </ul>
+            <div class="navbar-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
     <div id="cards-container"></div>
     <script src="index.js"></script>
 </body>
