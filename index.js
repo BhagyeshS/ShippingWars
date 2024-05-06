@@ -88,3 +88,73 @@ fetch(apiUrl)
 }
 
 AllShipments();
+
+
+function addShipment(shipmentData) {
+    fetch('http://54.220.202.86:8080/api/shipments/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(shipmentData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add shipment');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Shipment added successfully:', data);
+        // You can handle the response data as needed
+        // For example, you might want to display a success message or update the UI
+        // Here you can call the function to fetch all shipments again to update the UI
+        AllShipments();
+    })
+    .catch(error => {
+        console.error('Error adding shipment:', error);
+        // Handle the error, show an error message, etc.
+    });
+}
+
+function createShipmentForm() {
+    const formContainer = document.createElement('div');
+    formContainer.classList.add('shipment-form');
+    console.log("guftf7tf")
+
+    const form = document.createElement('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        const formData = new FormData(form);
+        const shipmentData = {};
+        formData.forEach((value, key) => {
+            shipmentData[key] = value;
+        });
+        addShipment(shipmentData);
+    });
+    container.innerHTML=""
+    const shipmentIdInput = document.createElement('input');
+    shipmentIdInput.setAttribute('type', 'text');
+    shipmentIdInput.setAttribute('name', 'shipmentId');
+    shipmentIdInput.setAttribute('placeholder', 'Shipment ID');
+    form.appendChild(shipmentIdInput);
+
+    const maxBidAmountInput = document.createElement('input');
+    maxBidAmountInput.setAttribute('type', 'number');
+    maxBidAmountInput.setAttribute('name', 'maxBidAmount');
+    maxBidAmountInput.setAttribute('placeholder', 'Max Bid Amount');
+    form.appendChild(maxBidAmountInput);
+
+    const bidStartTimeInput = document.createElement('input');
+    bidStartTimeInput.setAttribute('type', 'datetime-local');
+    bidStartTimeInput.setAttribute('name', 'bidStartTime');
+    form.appendChild(bidStartTimeInput);
+
+    const submitButton = document.createElement('button');
+    submitButton.setAttribute('type', 'submit');
+    submitButton.textContent = 'Add Shipment';
+    form.appendChild(submitButton);
+
+    formContainer.appendChild(form);
+    container.appendChild(formContainer);
+}

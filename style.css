@@ -7,12 +7,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 1.25em;
     background-color: black;
 }
 
 .navbar-logo {
-    font-size: 24px;
+    font-size: 1.5em;
 }
 
 .navbar-menu {
@@ -23,7 +23,7 @@ body {
 }
 
 .navbar-menu li {
-    margin-right: 20px;
+    margin-right: 1.25em;
 }
 
 .navbar-menu li a {
@@ -37,13 +37,13 @@ body {
 }
 
 .bar {
-    width: 25px;
-    height: 3px;
+    width: 1.5625em;
+    height: 0.1875em;
     background-color: #333;
-    margin: 5px 0;
+    margin: 0.3125em 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48em) {
     .navbar-menu {
         display: none;
     }
@@ -54,12 +54,12 @@ body {
         top: 100%;
         left: 0;
         position: relative;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 0.25em 0.625em rgba(0,0,0,0.1);
     }
 
     .navbar-menu.active li {
         margin-right: 0;
-        margin-top: 10px;
+        margin-top: 0.625em;
     }
 
     .navbar-toggle {
@@ -67,37 +67,42 @@ body {
     }
 }
 
-
-/* style.css */
-
-.heading{
+.heading {
     display: flex;
     justify-content: center;
 }
+
 .shipment-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
+    border: 0.0625em solid #ddd;
+    padding: 0.625em;
+    margin: 0.625em;
     background-color: #f9f9f9;
-    border: #555;
+    border: 0.0625em solid #555;
     align-items: center;
     justify-content: center;
+    border: none;
+    border-radius: 10%;
+    -webkit-box-shadow: 0.0625em 0.0625em 0.3125em 0em rgba(0,0,0,0.4);
+-moz-box-shadow: 0.0625em 0.0625em 0.3125em 0em rgba(0,0,0,0.4);
+box-shadow: 0.0625em 0.0625em 0.3125em 0em rgba(0,0,0,0.4);
+
 }
+
 .shipment-card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 1.125em;
+    margin-bottom: 0.3125em;
 }
+
 .shipment-card p {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
 }
 
-.shipment-card a{
+.shipment-card a {
     cursor: pointer;
 }
 
-.container-card{
+.container-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    
 }
