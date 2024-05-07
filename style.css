@@ -11,10 +11,6 @@ body {
     background-color: black;
 }
 
-.navbar-logo {
-    font-size: 1.5em;
-}
-
 .navbar-menu {
     list-style-type: none;
     margin: 0;
@@ -104,5 +100,5 @@ box-shadow: 0.0625em 0.0625em 0.3125em 0em rgba(0,0,0,0.4);
 
 .container-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
 }
