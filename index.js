@@ -24,9 +24,9 @@ function handleCardClick(shipmentId) {
             card.classList.add('shipment-card');
             card.innerHTML  = `
             <h2>Shipment Details</h2>
-            <p>Shipment ID: ${data.shipmentId}</p>
-            <p>Bid Amount: ${data.maxBidAmount}</p>
-            <p>Status: ${data.bidStartTime}</p>
+            <p>Shipment ID: ${data.shipment.shipmentId}</p>
+            <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
+            <p>Status: ${data.shipment.bidStartTime}</p>
             <p>hello</p>
             <!-- Add more details as needed -->
         `;
@@ -58,24 +58,25 @@ function AllShipments() {
 fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         container.innerHTML = ""
         const cardContainer = document.createElement('div'); // Create a parent div for all cards
         cardContainer.classList.add('container-card'); // Add a class to the parent div
         const Heading = document.createElement('h1'); // Create a parent div for all cards
         Heading.classList.add('heading');
         Heading.innerHTML = `Shipments`
-        data.forEach(shipment => {
+        data.map(shipment => {
             const card = document.createElement('div');
             card.classList.add('shipment-card');
             card.innerHTML = `
                 <a>
-                    <h3>${shipment.shipmentId}</h3>
-                    <p>Bid Amount: ${shipment.maxBidAmount}</p>
-                    <p>Status: ${shipment.bidStartTime}</p>
+                    <h3>${shipment.shipment.shipmentId}</h3>
+                    <p>Bid Amount: ${shipment.shipment.maxBidAmount}</p>
+                    <p>Status: ${shipment.shipment.bidStartTime}</p>
                 </a>`;
 
                 card.addEventListener('click', () => {
-                    handleCardClick(shipment.shipmentId);
+                    handleCardClick(shipment.shipment.shipmentId);
                 });
             // Append the card to the parent div
             cardContainer.appendChild(card);
@@ -90,71 +91,154 @@ fetch(apiUrl)
 AllShipments();
 
 
-function addShipment(shipmentData) {
-    fetch('http://54.220.202.86:8080/api/shipments/save', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(shipmentData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to add shipment');
+
+function addShipments() {
+    const app = document.getElementById('cards-container');
+app.innerHTML=""
+    // Create elements
+    const h2SelectCategory = document.createElement('h2');
+    h2SelectCategory.textContent = 'Select Category';
+
+    const categorySelect = document.createElement('select');
+    categorySelect.id = 'categorySelect';
+
+    const h2UploadImage = document.createElement('h2');
+    h2UploadImage.textContent = 'Upload Image';
+
+    const imageUpload = document.createElement('input');
+    imageUpload.type = 'file';
+    imageUpload.id = 'imageUpload';
+
+    const h2ShipmentFields = document.createElement('h2');
+    h2ShipmentFields.textContent = 'Shipment Details';
+
+    const inputName = createInput('Name');
+    const inputQuantity = createInput('Quantity', 'number');
+    const inputDescription = createInput('Description', 'textarea');
+    const inputAddress = createInput('Address');
+    const inputTime = createInput('Time');
+    const inputDate = createInput('Date', 'date');
+
+    const uploadBtn = document.createElement('button');
+    uploadBtn.textContent = 'Upload';
+    uploadBtn.id = 'uploadBtn';
+
+    const addShipmentBtn = document.createElement('button');
+    addShipmentBtn.textContent = 'Add Shipment';
+    addShipmentBtn.id = 'addShipmentBtn';
+
+    // Append elements to app div
+    app.appendChild(h2SelectCategory);
+    app.appendChild(categorySelect);
+    app.appendChild(h2UploadImage);
+    app.appendChild(imageUpload);
+    app.appendChild(h2ShipmentFields);
+    app.appendChild(inputName);
+    app.appendChild(inputQuantity);
+    app.appendChild(inputDescription);
+    app.appendChild(inputAddress);
+    app.appendChild(inputTime);
+    app.appendChild(inputDate);
+    app.appendChild(uploadBtn);
+    app.appendChild(addShipmentBtn);
+
+    // Fetch categories from API
+    fetch('http://54.220.202.86:8080/api/categories/getdata')
+        .then(response => response.json())
+        .then(categories => {
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.textContent = category.categoryName;
+                categorySelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching categories:', error));
+
+    // Handle image upload
+    document.getElementById('uploadBtn').addEventListener('click', function () {
+        const imageFile = imageUpload.files[0];
+        if (!imageFile) {
+            alert('Please select an image file.');
+            return;
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Shipment added successfully:', data);
-        // You can handle the response data as needed
-        // For example, you might want to display a success message or update the UI
-        // Here you can call the function to fetch all shipments again to update the UI
-        AllShipments();
-    })
-    .catch(error => {
-        console.error('Error adding shipment:', error);
-        // Handle the error, show an error message, etc.
-    });
-}
 
-function createShipmentForm() {
-    const formContainer = document.createElement('div');
-    formContainer.classList.add('shipment-form');
-    console.log("guftf7tf")
+        const formData = new FormData();
+        formData.append('image', imageFile);
 
-    const form = document.createElement('form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-        const formData = new FormData(form);
-        const shipmentData = {};
-        formData.forEach((value, key) => {
-            shipmentData[key] = value;
+        fetch('http://54.220.202.86:8080/api/image/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(imageUrl => {
+            sessionStorage.setItem('imageUrl', imageUrl);
+            alert('Image uploaded successfully.');
+        })
+        .catch(error => {
+            console.error('Error uploading image:', error);
+            alert('Error uploading image. Please try again.');
         });
-        addShipment(shipmentData);
     });
-    container.innerHTML=""
-    const shipmentIdInput = document.createElement('input');
-    shipmentIdInput.setAttribute('type', 'text');
-    shipmentIdInput.setAttribute('name', 'shipmentId');
-    shipmentIdInput.setAttribute('placeholder', 'Shipment ID');
-    form.appendChild(shipmentIdInput);
 
-    const maxBidAmountInput = document.createElement('input');
-    maxBidAmountInput.setAttribute('type', 'number');
-    maxBidAmountInput.setAttribute('name', 'maxBidAmount');
-    maxBidAmountInput.setAttribute('placeholder', 'Max Bid Amount');
-    form.appendChild(maxBidAmountInput);
+    // Handle shipment addition
+    document.getElementById('addShipmentBtn').addEventListener('click', function () {
+        const selectedCategory = categorySelect.value;
+        const imageUrl = sessionStorage.getItem('imageUrl');
+        const name = inputName.value.trim();
+        const quantity = inputQuantity.value.trim();
+        const description = inputDescription.value.trim();
+        const address = inputAddress.value.trim();
+        const time = inputTime.value.trim();
+        const date = inputDate.value.trim();
 
-    const bidStartTimeInput = document.createElement('input');
-    bidStartTimeInput.setAttribute('type', 'datetime-local');
-    bidStartTimeInput.setAttribute('name', 'bidStartTime');
-    form.appendChild(bidStartTimeInput);
+        if (!selectedCategory || !imageUrl || !name || !quantity || !description || !address || !time || !date) {
+            alert('Please fill in all fields and upload an image first.');
+            return;
+        }
 
-    const submitButton = document.createElement('button');
-    submitButton.setAttribute('type', 'submit');
-    submitButton.textContent = 'Add Shipment';
-    form.appendChild(submitButton);
+        const shipmentData = {
+            category_id: selectedCategory,
+            image_url: imageUrl,
+            name: name,
+            quantity: quantity,
+            description: description,
+            address: address,
+            time: time,
+            date: date
+        };
 
-    formContainer.appendChild(form);
-    container.appendChild(formContainer);
-}
+        fetch('http://54.220.202.86:8080/api/shipments/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(shipmentData)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Shipment added successfully:', result);
+            alert('Shipment added successfully.');
+        })
+        .catch(error => {
+            console.error('Error adding shipment:', error);
+            alert('Error adding shipment. Please try again.');
+        });
+    });
+
+    // Function to create input elements
+    function createInput(labelText, type = 'text') {
+        const label = document.createElement('label');
+        label.textContent = labelText;
+
+        const input = document.createElement(type === 'textarea' ? 'textarea' : 'input');
+        input.type = type;
+        input.placeholder = labelText;
+        
+        const container = document.createElement('div');
+        container.appendChild(label);
+        container.appendChild(input);
+        
+        return container;
+    }
+};
+
