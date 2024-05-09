@@ -2,7 +2,9 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-
+.navbar{
+    position: -webkit-sticky;
+}
 .container {
     display: flex;
     justify-content: space-between;
@@ -83,10 +85,15 @@ body {
     border: 1px solid #ddd;
     padding: 10px;
     margin: 10px;
-    background-color: #f9f9f9;
+    background-color: #fbcdcd;
     border: #555;
     align-items: center;
+    overflow: hidden;
     justify-content: center;
+}
+
+.shipment-card img{
+    height: 30vh;
 }
 .shipment-card h3 {
     font-size: 18px;
@@ -103,5 +110,5 @@ body {
 
 .container-card{
     display: grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));    
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));    
 }

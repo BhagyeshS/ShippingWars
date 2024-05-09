@@ -24,7 +24,7 @@ function handleCardClick(shipmentId) {
             card.classList.add('shipment-card');
             card.innerHTML  = `
             <h2>Shipment Details</h2>
-            <img src="${data.shipment.imageUrl}" alt="Uploaded Image">
+            <img src="${data.shipment.imageUrl}" alt="Uploaded Image" class="shipment-image">
             <p>Shipment ID: ${data.shipment.shipmentId}</p>
             <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
             <p>Status: ${data.shipment.bidStartTime}</p>
@@ -91,89 +91,3 @@ fetch(apiUrl)
 }
 
 AllShipments();
-
-
-
-// JavaScript code for the single-page application
-
-function addShipments() {
-    const appDiv = document.getElementById('cards-container');
-
-    // Fetch categories and populate the select element
-    fetch('http://54.220.202.86:8080/api/categories/getdata')
-        .then(response => response.json())
-        .then(categories => {
-            const categoryOptions = categories.map(category => `<option value="${category.categoryId}">${category.categoryName}</option>`).join('');
-            const formHtml = `
-                <h1>Add Shipment</h1>
-                <form id="add-shipment-form">
-                    <label for="category">Category:</label>
-                    <select id="category" name="category" required>
-                        ${categoryOptions}
-                    </select><br>
-        
-                    <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*" required><br>
-        
-                    <label for="shipmentId">Shipment ID:</label>
-                    <input type="text" id="shipmentId" name="shipmentId" required><br>
-        
-                    <label for="maxBidAmount">Max Bid Amount:</label>
-                    <input type="text" id="maxBidAmount" name="maxBidAmount" required><br>
-        
-                    <label for="bidStartTime">Bid Start Time:</label>
-                    <input type="text" id="bidStartTime" name="bidStartTime" required><br>
-        
-                    <button type="submit">Add Shipment</button>
-                </form>
-            `;
-            appDiv.innerHTML = formHtml;
-        })
-        .catch(error => console.error('Error fetching categories:', error));
-
-    // Form submission handler
-    appDiv.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-
-        // Upload image
-        fetch('http://54.220.202.86:8080/api/image/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(imageData => {
-            // Add shipment with image URL
-            const shipmentData = {
-                category: formData.get('category'),
-                imageUrl: imageData.url,
-                shipmentId: formData.get('shipmentId'),
-                maxBidAmount: formData.get('maxBidAmount'),
-                bidStartTime: formData.get('bidStartTime')
-            };
-
-            // Add shipment
-            fetch('http://54.220.202.86:8080/api/shipments/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(shipmentData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to add shipment');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Shipment added successfully:', data);
-                alert('Shipment added successfully!');
-                // Reset the form
-                event.target.reset();
-            })
-            .catch(error => console.error('Error adding shipment:', error));
-        })
-        .catch(error => console.error('Error uploading image:', error));
-    });
-};
