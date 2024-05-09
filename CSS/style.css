@@ -94,6 +94,7 @@ body {
 
 .shipment-card img{
     height: 30vh;
+    width: 17.5vw;
 }
 .shipment-card h3 {
     font-size: 18px;
