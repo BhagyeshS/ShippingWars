@@ -24,6 +24,7 @@ function handleCardClick(shipmentId) {
             card.classList.add('shipment-card');
             card.innerHTML  = `
             <h2>Shipment Details</h2>
+            <img src="${data.shipment.imageUrl}" alt="Uploaded Image">
             <p>Shipment ID: ${data.shipment.shipmentId}</p>
             <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
             <p>Status: ${data.shipment.bidStartTime}</p>
@@ -70,6 +71,7 @@ fetch(apiUrl)
             card.classList.add('shipment-card');
             card.innerHTML = `
                 <a>
+                <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image">
                     <h3>${shipment.shipment.shipmentId}</h3>
                     <p>Bid Amount: ${shipment.shipment.maxBidAmount}</p>
                     <p>Status: ${shipment.shipment.bidStartTime}</p>
@@ -92,153 +94,86 @@ AllShipments();
 
 
 
+// JavaScript code for the single-page application
+
 function addShipments() {
-    const app = document.getElementById('cards-container');
-app.innerHTML=""
-    // Create elements
-    const h2SelectCategory = document.createElement('h2');
-    h2SelectCategory.textContent = 'Select Category';
+    const appDiv = document.getElementById('cards-container');
 
-    const categorySelect = document.createElement('select');
-    categorySelect.id = 'categorySelect';
-
-    const h2UploadImage = document.createElement('h2');
-    h2UploadImage.textContent = 'Upload Image';
-
-    const imageUpload = document.createElement('input');
-    imageUpload.type = 'file';
-    imageUpload.id = 'imageUpload';
-
-    const h2ShipmentFields = document.createElement('h2');
-    h2ShipmentFields.textContent = 'Shipment Details';
-
-    const inputName = createInput('Name');
-    const inputQuantity = createInput('Quantity', 'number');
-    const inputDescription = createInput('Description', 'textarea');
-    const inputAddress = createInput('Address');
-    const inputTime = createInput('Time');
-    const inputDate = createInput('Date', 'date');
-
-    const uploadBtn = document.createElement('button');
-    uploadBtn.textContent = 'Upload';
-    uploadBtn.id = 'uploadBtn';
-
-    const addShipmentBtn = document.createElement('button');
-    addShipmentBtn.textContent = 'Add Shipment';
-    addShipmentBtn.id = 'addShipmentBtn';
-
-    // Append elements to app div
-    app.appendChild(h2SelectCategory);
-    app.appendChild(categorySelect);
-    app.appendChild(h2UploadImage);
-    app.appendChild(imageUpload);
-    app.appendChild(h2ShipmentFields);
-    app.appendChild(inputName);
-    app.appendChild(inputQuantity);
-    app.appendChild(inputDescription);
-    app.appendChild(inputAddress);
-    app.appendChild(inputTime);
-    app.appendChild(inputDate);
-    app.appendChild(uploadBtn);
-    app.appendChild(addShipmentBtn);
-
-    // Fetch categories from API
+    // Fetch categories and populate the select element
     fetch('http://54.220.202.86:8080/api/categories/getdata')
         .then(response => response.json())
         .then(categories => {
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.textContent = category.categoryName;
-                categorySelect.appendChild(option);
-            });
+            const categoryOptions = categories.map(category => `<option value="${category.categoryId}">${category.categoryName}</option>`).join('');
+            const formHtml = `
+                <h1>Add Shipment</h1>
+                <form id="add-shipment-form">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        ${categoryOptions}
+                    </select><br>
+        
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required><br>
+        
+                    <label for="shipmentId">Shipment ID:</label>
+                    <input type="text" id="shipmentId" name="shipmentId" required><br>
+        
+                    <label for="maxBidAmount">Max Bid Amount:</label>
+                    <input type="text" id="maxBidAmount" name="maxBidAmount" required><br>
+        
+                    <label for="bidStartTime">Bid Start Time:</label>
+                    <input type="text" id="bidStartTime" name="bidStartTime" required><br>
+        
+                    <button type="submit">Add Shipment</button>
+                </form>
+            `;
+            appDiv.innerHTML = formHtml;
         })
         .catch(error => console.error('Error fetching categories:', error));
 
-    // Handle image upload
-    document.getElementById('uploadBtn').addEventListener('click', function () {
-        const imageFile = imageUpload.files[0];
-        if (!imageFile) {
-            alert('Please select an image file.');
-            return;
-        }
+    // Form submission handler
+    appDiv.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
 
-        const formData = new FormData();
-        formData.append('image', imageFile);
-
+        // Upload image
         fetch('http://54.220.202.86:8080/api/image/upload', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.text())
-        .then(imageUrl => {
-            sessionStorage.setItem('imageUrl', imageUrl);
-            alert('Image uploaded successfully.');
-        })
-        .catch(error => {
-            console.error('Error uploading image:', error);
-            alert('Error uploading image. Please try again.');
-        });
-    });
-
-    // Handle shipment addition
-    document.getElementById('addShipmentBtn').addEventListener('click', function () {
-        const selectedCategory = categorySelect.value;
-        const imageUrl = sessionStorage.getItem('imageUrl');
-        const name = inputName.value.trim();
-        const quantity = inputQuantity.value.trim();
-        const description = inputDescription.value.trim();
-        const address = inputAddress.value.trim();
-        const time = inputTime.value.trim();
-        const date = inputDate.value.trim();
-
-        if (!selectedCategory || !imageUrl || !name || !quantity || !description || !address || !time || !date) {
-            alert('Please fill in all fields and upload an image first.');
-            return;
-        }
-
-        const shipmentData = {
-            category_id: selectedCategory,
-            image_url: imageUrl,
-            name: name,
-            quantity: quantity,
-            description: description,
-            address: address,
-            time: time,
-            date: date
-        };
-
-        fetch('http://54.220.202.86:8080/api/shipments/save', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(shipmentData)
-        })
         .then(response => response.json())
-        .then(result => {
-            console.log('Shipment added successfully:', result);
-            alert('Shipment added successfully.');
+        .then(imageData => {
+            // Add shipment with image URL
+            const shipmentData = {
+                category: formData.get('category'),
+                imageUrl: imageData.url,
+                shipmentId: formData.get('shipmentId'),
+                maxBidAmount: formData.get('maxBidAmount'),
+                bidStartTime: formData.get('bidStartTime')
+            };
+
+            // Add shipment
+            fetch('http://54.220.202.86:8080/api/shipments/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(shipmentData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add shipment');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Shipment added successfully:', data);
+                alert('Shipment added successfully!');
+                // Reset the form
+                event.target.reset();
+            })
+            .catch(error => console.error('Error adding shipment:', error));
         })
-        .catch(error => {
-            console.error('Error adding shipment:', error);
-            alert('Error adding shipment. Please try again.');
-        });
+        .catch(error => console.error('Error uploading image:', error));
     });
-
-    // Function to create input elements
-    function createInput(labelText, type = 'text') {
-        const label = document.createElement('label');
-        label.textContent = labelText;
-
-        const input = document.createElement(type === 'textarea' ? 'textarea' : 'input');
-        input.type = type;
-        input.placeholder = labelText;
-        
-        const container = document.createElement('div');
-        container.appendChild(label);
-        container.appendChild(input);
-        
-        return container;
-    }
 };
-
