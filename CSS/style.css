@@ -92,9 +92,13 @@ body {
     justify-content: center;
 }
 
+.shipment-image-id{
+    background-color: red;
+
+}
 .shipment-card img{
-    height: 30vh;
-    width: 17.5vw;
+    width: 100%;
+  height: auto;
 }
 .shipment-card h3 {
     font-size: 18px;
@@ -112,4 +116,33 @@ body {
 .container-card{
     display: grid;
     grid-template-columns:repeat(auto-fit,minmax(340px,1fr));    
+}
+
+
+.shipment-card-id {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fbcdcd;
+    border: #555;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.shipment-image-id{
+    background-color: red;
+    
+}
+.shipment-card-id h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.shipment-card-id p {
+    font-size: 14px;
+    color: #555;
+}
+
+.shipment-card-id a{
+    cursor: pointer;
 }

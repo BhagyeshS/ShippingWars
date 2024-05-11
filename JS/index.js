@@ -11,45 +11,57 @@ const apiUrl = 'http://54.220.202.86:8080/api/shipments/getdata';
 // const proxyUrl = 'http://localhost:3000/proxy?url=';
 
 // Function to handle card click event
+// Function to handle card click event
+// Function to handle bid submission
+function submitBid(shipmentId, bidAmount) {
+    fetch('http://54.220.202.86:8080/api/bids/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            shipmentId: shipmentId,
+            bidAmount: bidAmount,
+            shipperId:1,
+            bidTime: new Date(),
+            bidStatus: "pending",
+
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Bid placed successfully');
+            // Optionally, you can update the UI to reflect the bid placement
+        } else {
+            console.error('Failed to place bid');
+            // Handle error if needed
+        }
+    })
+    .catch(error => console.error('Error placing bid:', error));
+}
+
+// Function to handle card click event
 function handleCardClick(shipmentId) {
     // Fetch data for the clicked shipment
-    // fetch(proxyUrl + encodeURIComponent(`http://54.220.202.86:8080/api/shipments/${shipmentId}`))
     fetch(`http://54.220.202.86:8080/api/shipments/${shipmentId}`)
         .then(response => response.json())
         .then(data => {
             // Display shipment details
-            console.log(data)
-            container.innerHTML = ""
+            console.log(data);
+            container.innerHTML = "";
             const card = document.createElement('div');
-            card.classList.add('shipment-card');
+            card.classList.add('shipment-card-id');
             card.innerHTML  = `
-            <h2>Shipment Details</h2>
-            <img src="${data.shipment.imageUrl}" alt="Uploaded Image" class="shipment-image">
-            <p>Shipment ID: ${data.shipment.shipmentId}</p>
-            <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
-            <p>Status: ${data.shipment.bidStartTime}</p>
-            <p>hello</p>
-            <!-- Add more details as needed -->
-        `;
-        container.appendChild(card);
-            // data.forEach(shipment => {
-            //     const card = document.createElement('div');
-            //     card.classList.add('shipment-card');
-            //     card.innerHTML  = `
-            //     <h2>Shipment Details</h2>
-            //     <p>Shipment ID: ${data.shipmentId}</p>
-            //     <p>Bid Amount: ${data.maxBidAmount}</p>
-            //     <p>Status: ${data.bidStartTime}</p>
-            //     <!-- Add more details as needed -->
-            // `;
-            // container.appendChild(card);
-            })
-            // Replace the content of a div with ID 'shipment-details' with the shipment details
-            
-            
-            // document.getElementById('shipment-details').innerHTML = shipmentDetails;
-        // })
-        
+                <h2>Shipment Details</h2>
+                <img src="${data.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345" class="shipment-image-id">
+                <p>Shipment ID: ${data.shipment.shipmentId}</p>
+                <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
+                <p>Status: ${data.shipment.bidStartTime}</p>
+                <input type="number" id="bidAmount" placeholder="Enter Bid Amount">
+                <button onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)">Bid</button>
+            `;
+            container.appendChild(card);
+        })
         .catch(error => console.error('Error fetching data:', error));
 }
 
@@ -71,10 +83,10 @@ fetch(apiUrl)
             card.classList.add('shipment-card');
             card.innerHTML = `
                 <a>
-                <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image">
+                <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345">
                     <h3>${shipment.shipment.shipmentId}</h3>
                     <p>Bid Amount: ${shipment.shipment.maxBidAmount}</p>
-                    <p>Status: ${shipment.shipment.bidStartTime}</p>
+                    <p>Status: ${shipment.destinationAddress.streetAddress}</p>
                 </a>`;
 
                 card.addEventListener('click', () => {
