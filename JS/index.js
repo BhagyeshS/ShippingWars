@@ -10,8 +10,6 @@ const container = document.getElementById('cards-container');
 const apiUrl = 'http://54.220.202.86:8080/api/shipments/getdata';
 // const proxyUrl = 'http://localhost:3000/proxy?url=';
 
-// Function to handle card click event
-// Function to handle card click event
 // Function to handle bid submission
 function submitBid(shipmentId, bidAmount) {
     fetch('http://54.220.202.86:8080/api/bids/save', {
@@ -45,26 +43,50 @@ function submitBid(shipmentId, bidAmount) {
 function handleCardClick(shipmentId) {
     // Fetch data for the clicked shipment
     fetch(`http://54.220.202.86:8080/api/shipments/${shipmentId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Display shipment details
-            console.log(data);
-            container.innerHTML = "";
-            const card = document.createElement('div');
-            card.classList.add('shipment-card-id');
-            card.innerHTML  = `
-                <h2>Shipment Details</h2>
-                <img src="${data.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345" class="shipment-image-id">
-                <p>Shipment ID: ${data.shipment.shipmentId}</p>
-                <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
-                <p>Status: ${data.shipment.bidStartTime}</p>
-                <input type="number" id="bidAmount" placeholder="Enter Bid Amount">
-                <button type="submit" onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)">Bid</button>
-            `;
-            container.appendChild(card);
+            // Fetch last bid for the shipment
+            fetch(`http://54.220.202.86:8080/api/bids/shipment/${shipmentId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // Handle case where no bids are posted
+                            return [];
+                        }
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(bids => {
+                    // const lastBidAmount=bids.length > 0 ? bids[bids.length - 1].bidAmount: 0
+                    // Display shipment details and last bid
+                    console.log(data);
+                    console.log(bids);
+                    container.innerHTML = "";
+                    const card = document.createElement('div');
+                    card.classList.add('shipment-card-id');
+                    card.innerHTML  = `
+                        <h2>Shipment Details</h2>
+                        <img src="${data.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345" class="shipment-image-id">
+                        <p>Shipment ID: ${data.shipment.shipmentId}</p>
+                        <p>Last Bid: ${bids.length > 0 ? bids[bids.length - 1].bidAmount : 'No bids yet'}</p>
+                        <h3>New Bid</h3>
+                        <input type="number" id="bidAmount" placeholder="Enter Bid Amount">
+                        <button type="submit" onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)">Bid</button>
+                    `;
+                    container.appendChild(card);
+                })
+                .catch(error => console.error('Error fetching bids:', error));
         })
         .catch(error => console.error('Error fetching data:', error));
 }
+
+
 
 function AllShipments() {
 // Use fetch directly without dynamic import
