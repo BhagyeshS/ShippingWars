@@ -82,6 +82,8 @@ body {
     justify-content: center;
 }
 .shipment-card {
+    /* Vertically center the content */
+    align-items: center;
     border: 1px solid #ddd;
     padding: 10px;
     margin: 10px;
@@ -89,7 +91,6 @@ body {
     border: #555;
     align-items: center;
     overflow: hidden;
-    justify-content: center;
 }
 
 .shipment-image-id{
@@ -99,6 +100,7 @@ body {
 .shipment-card img{
     width: 100%;
   height: auto;
+  align-items: center;
 }
 .shipment-card h3 {
     font-size: 18px;
@@ -120,6 +122,10 @@ body {
 
 
 .shipment-card-id {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #ddd;
     padding: 10px;
     margin: 10px;
@@ -130,9 +136,9 @@ body {
     justify-content: center;
 }
 
-.shipment-image-id{
-    background-color: red;
-    
+.shipment-card-id img{
+  height: auto;
+  width: 30%;
 }
 .shipment-card-id h3 {
     font-size: 18px;
@@ -145,4 +151,72 @@ body {
 
 .shipment-card-id a{
     cursor: pointer;
+}
+
+.shipment-card-id input[type="number"],button[type="submit"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.shipment-card-id button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    width: 50%;
+}
+
+
+
+
+/*add shipment css*/
+
+/* Style the form container */
+#shipmentForm {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Style form elements */
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="date"],
+input[type="number"],
+input[type="file"],
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }

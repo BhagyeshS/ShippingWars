@@ -31,6 +31,7 @@ function submitBid(shipmentId, bidAmount) {
     .then(response => {
         if (response.ok) {
             console.log('Bid placed successfully');
+            alert('Bid placed successfully!');
             // Optionally, you can update the UI to reflect the bid placement
         } else {
             console.error('Failed to place bid');
@@ -58,7 +59,7 @@ function handleCardClick(shipmentId) {
                 <p>Bid Amount: ${data.shipment.maxBidAmount}</p>
                 <p>Status: ${data.shipment.bidStartTime}</p>
                 <input type="number" id="bidAmount" placeholder="Enter Bid Amount">
-                <button onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)">Bid</button>
+                <button type="submit" onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)">Bid</button>
             `;
             container.appendChild(card);
         })
