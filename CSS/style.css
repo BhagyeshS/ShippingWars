@@ -103,6 +103,8 @@ footer {
     border: #555;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 60px;
+    border-radius: 5px;
 }
 
 .shipment-image-id{
@@ -113,6 +115,7 @@ footer {
     width: 100%;
   height: auto;
   align-items: center;
+  border-radius: 5px;
 }
 .shipment-card h3 {
     font-size: 18px;
@@ -146,6 +149,7 @@ footer {
     align-items: center;
     overflow: hidden;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
 .shipment-card-id img{
@@ -231,4 +235,15 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+ form textarea {
+    width: 100%; 
+    padding: 1em; 
+    margin-bottom: 1.5em; 
+    border: 0.1em solid #ccc; 
+    border-radius: 0.4em; 
+    resize: vertical; 
+    min-height: 6em; 
+    box-sizing: border-box;
 }
