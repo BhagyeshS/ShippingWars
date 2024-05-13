@@ -1,44 +1,44 @@
 // Function to create shipment form
 function createShipmentForm() {
-    // Clear the container
+
     container.innerHTML = "";
   
     // Create form element
     const form = document.createElement("form");
     form.id = "shipmentForm";
-    form.setAttribute("role", "form"); // Add ARIA role attribute
+    form.setAttribute("role", "form"); 
   
-    // Create fieldset element for grouping form fields
+   
     const fieldset = document.createElement("fieldset");
   
     // Create legend element for fieldset
     const legend = document.createElement("legend");
-    legend.textContent = "Shipment Details"; // Set legend text
+    legend.textContent = "Shipment Details"; 
   
-    // Create label and input elements for shipment date
+
     const shipmentDateLabel = document.createElement("label");
     shipmentDateLabel.textContent = "Shipment Date:";
-    shipmentDateLabel.setAttribute("for", "shipmentDate"); // Add for attribute
+    shipmentDateLabel.setAttribute("for", "shipmentDate"); 
     const shipmentDateInput = document.createElement("input");
     shipmentDateInput.type = "date";
     shipmentDateInput.id = "shipmentDate";
     shipmentDateInput.name = "shipmentDate";
     shipmentDateInput.required = true;
   
-    // Create label and input elements for delivery date
+
     const deliveryDateLabel = document.createElement("label");
     deliveryDateLabel.textContent = "Delivery Date:";
-    deliveryDateLabel.setAttribute("for", "deliveryDate"); // Add for attribute
+    deliveryDateLabel.setAttribute("for", "deliveryDate"); 
     const deliveryDateInput = document.createElement("input");
     deliveryDateInput.type = "date";
     deliveryDateInput.id = "deliveryDate";
     deliveryDateInput.name = "deliveryDate";
     deliveryDateInput.required = true;
   
-    // Create label and input elements for max bid amount
+
     const maxBidAmountLabel = document.createElement("label");
     maxBidAmountLabel.textContent = "Max Bid Amount:";
-    maxBidAmountLabel.setAttribute("for", "maxBidAmount"); // Add for attribute
+    maxBidAmountLabel.setAttribute("for", "maxBidAmount"); 
     const maxBidAmountInput = document.createElement("input");
     maxBidAmountInput.type = "number";
     maxBidAmountInput.id = "maxBidAmount";
@@ -136,28 +136,23 @@ function createShipmentForm() {
   
     const descriptionLabel = document.createElement("label");
     descriptionLabel.textContent = "Description:";
-    descriptionLabel.setAttribute("for", "description"); // Add for attribute
+    descriptionLabel.setAttribute("for", "description"); 
     const descriptionInput = document.createElement("textarea");
     descriptionInput.id = "description";
     descriptionInput.name = "description";
     descriptionInput.rows = "4"; 
     descriptionInput.cols = "75"; 
   
-    // Repeat the process for the remaining fields...
-  
-    // Create submit button
     const submitButton = document.createElement("button");
-    submitButton.type = "submit"; // Change type to submit to enable form submission
+    submitButton.type = "submit"; 
     submitButton.textContent = "Submit";
-    submitButton.setAttribute("role", "button"); // Add ARIA role attribute
+    submitButton.setAttribute("role", "button");
     submitButton.addEventListener("click", function (event) {
-      // Prevent default form submission
       event.preventDefault();
-      // Call a function to handle image upload when the submit button is clicked
+   
       submitForm();
     });
-  
-    // Append label and input elements to the fieldset
+ 
     fieldset.appendChild(legend);
     fieldset.appendChild(shipmentDateLabel);
     fieldset.appendChild(shipmentDateInput);
@@ -204,11 +199,11 @@ function createShipmentForm() {
     fieldset.appendChild(document.createElement("br"));
   
   
-    // Append fieldset and submit button to the form
+
     form.appendChild(fieldset);
     form.appendChild(submitButton);
   
-    // Append form to the container
+
     container.appendChild(form);
     container.appendChild(OriginAddressForm);
     container.appendChild(DestinationAddressForm);
@@ -241,21 +236,20 @@ function createShipmentForm() {
               "description"
             ).value;
   
-          // Convert postal codes to numbers
+    
           const originPostalCode = parseInt(originPostalCodeInput.value, 10);
           const destinationPostalCode = parseInt(
             destinationPostalCodeInput.value,
             10
           );
   
-          // Check if the postal codes are valid numbers
+
           if (isNaN(originPostalCode) || isNaN(destinationPostalCode)) {
             console.error("Error: Invalid postal code");
             reject("Invalid postal code");
             return;
           }
   
-          // Create form data object
           const formData = {
             shipmentDate: shipmentDate,
             deliveryDate: deliveryDate,
@@ -282,7 +276,7 @@ function createShipmentForm() {
             .then((originAddressId) => {
               formData.originAddressId = originAddressId;
   
-              // Submit destination address data
+           
               submitAddress(
                 "DestinationAddressForm",
                 "destinationStreetAddress",
@@ -293,7 +287,6 @@ function createShipmentForm() {
                 .then((destinationAddressId) => {
                   formData.destinationAddressId = destinationAddressId;
   
-                  // Now that both addresses are saved, submit shipment data
                   fetch('http://54.220.202.86:8080/api/shipments/save', {
                       method: 'POST',
                       headers: {
@@ -333,26 +326,7 @@ function createShipmentForm() {
     });
   }
   
-  // function submitForm() {
-  //     // Extract form data...
-  //     submitAddress("OriginAddressForm",
-  //               "originStreetAddress",
-  //               "originCity",
-  //               "originState",
-  //               "originPostalCode")
-  //       .then((originAddressId) => {
-  //         // Handle origin address submission...
-  //         console.log(originAddressId );
-  //       })
-  //       .catch((error) => {
-  //         // Properly handle the rejection
-  //         console.error("Error:", error);
-  //         alert("An error occurred while submitting the form");
-  //       });
-  //   }
-    
-  
-  // Function to create label element
+ 
   function createLabel(text, htmlFor) {
     const label = document.createElement("label");
     label.textContent = text;
@@ -360,7 +334,7 @@ function createShipmentForm() {
     return label;
   }
   
-  // Function to create input element
+
   function createInput(type, id, name, required) {
     const input = document.createElement("input");
     input.type = type;
@@ -372,7 +346,7 @@ function createShipmentForm() {
     return input;
   }
   
-  // Function to handle image upload
+
   function uploadFile() {
     return new Promise((resolve, reject) => {
       var fileInput = document.getElementById("imageUpload");
@@ -408,10 +382,8 @@ function createShipmentForm() {
   }
   function submitAddress(form, address, city, state, postalCode) {
       return new Promise((resolve, reject) => {
-        // Create a new FormData object from the provided form
         const formData = new FormData(document.getElementById(form));
     
-        // Extract the values from the FormData object
         const addressData = {
           streetAddress: document.getElementById(address)?.value,
           city: document.getElementById(city)?.value,
@@ -419,20 +391,13 @@ function createShipmentForm() {
           postalCode: parseInt(document.getElementById(postalCode)?.value),
         };
     console.log(addressData);
-        // Check if any of the required fields are null
-      //   if (!addressData.streetAddress || !addressData.city || !addressData.state || isNaN(addressData.postalCode)) {
-      //     console.error("Error: Incomplete address data");
-      //     reject("Incomplete address data");
-      //     return;
-      //   }
-    
-        // Convert the address data to JSON
+      
         const jsonData = JSON.stringify(addressData);
     
-        // Log the JSON data to verify
+     
         console.log(jsonData);
     
-        // Submit the address data to the server
+      
         fetch("http://54.220.202.86:8080/api/addresses/save", {
           method: "POST",
           headers: {
@@ -447,11 +412,11 @@ function createShipmentForm() {
             return response.json();
           })
           .then((savedAddressData) => {
-            // Resolve the promise with the saved address data
+         
             resolve(savedAddressData);
           })
           .catch((error) => {
-            // Log and reject any errors that occur during the fetch request
+         
             console.error("Error:", error);
             reject(error);
           });

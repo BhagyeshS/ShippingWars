@@ -106,7 +106,10 @@ footer {
     margin-bottom: 60px;
     border-radius: 5px;
 }
-
+.shipment-card span {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 .shipment-image-id{
     background-color: red;
 
@@ -155,6 +158,10 @@ footer {
 .shipment-card-id img{
   height: auto;
   width: 30%;
+}
+.shipment-card-id span {
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 .shipment-card-id h3 {
     font-size: 18px;
