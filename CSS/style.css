@@ -2,26 +2,24 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-.loader{
+
+.loader {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.navbar{
+
+.navbar {
     position: -webkit-sticky;
 }
+
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 1.25em;
     background-color: #282835;
 }
-
-/* .logo {
-    max-width: 100%;
-    height: auto;
-} */
 
 .navbar-menu {
     list-style-type: none;
@@ -31,7 +29,7 @@ body {
 }
 
 .navbar-menu li {
-    margin-right: 20px;
+    margin-right: 1.25em;
 }
 
 .navbar-menu li a {
@@ -45,17 +43,18 @@ body {
 }
 
 .bar {
-    width: 25px;
-    height: 3px;
+    width: 1.563em;
+    height: 0.1875em;
     background-color: #282835;
-    margin: 5px 0;
+    margin: 0.313em 0;
 }
 
-@media screen and (max-width: 768px) {
-    .logo{
-        height: 60px;
+@media screen and (max-width: 48em) {
+    .logo {
+        height: 3.75em;
         width: 100%;
     }
+
     .navbar-menu {
         display: none;
     }
@@ -66,19 +65,18 @@ body {
         top: 100%;
         left: 0;
         position: relative;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.1);
     }
 
     .navbar-menu.active li {
         margin-right: 0;
-        margin-top: 10px;
+        margin-top: 0.625em;
     }
 
     .navbar-toggle {
         display: block;
     }
 }
-
 
 /* footer*/
 footer {
@@ -88,106 +86,115 @@ footer {
     width: 100%;
     background-color: #282835;
     color: white;
-    text-align: center;  
-    padding: 1.5rem 0;  
+    text-align: center;
+    padding: 1.5em 0;
     padding: 0;
 }
-/* style.css */
 
-.heading{
+/* style.css */
+.heading {
     display: flex;
     justify-content: center;
 }
+
 .shipment-card {
     /* Vertically center the content */
     align-items: center;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
+    border: 0.0625em solid #ddd;
+    padding: 0.625em;
+    margin: 0.625em;
     background-color: #fbcdcd;
     border: #555;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 60px;
-    border-radius: 5px;
+    margin-bottom: 3.75em;
+    border-radius: 0.3125em;
 }
+
 .shipment-card span {
-    margin-bottom: 5px;
+    margin-bottom: 0.3125em;
     font-weight: bold;
 }
-.shipment-image-id{
-    background-color: red;
 
+.shipment-image-id {
+    background-color: red;
 }
-.shipment-card img{
+
+.shipment-card img {
     width: 100%;
-  height: auto;
-  align-items: center;
-  border-radius: 5px;
+    height: auto;
+    align-items: center;
+    border-radius: 0.3125em;
 }
+
 .shipment-card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 1.125em;
+    margin-bottom: 0.3125em;
 }
+
 .shipment-card p {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
 }
 
-.shipment-card a{
+.shipment-card a {
     cursor: pointer;
 }
 
-.container-card{
+.container-card {
     display: grid;
-    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));    
+    grid-template-columns: repeat(auto-fit, minmax(21.25em, 1fr));
 }
-
 
 .shipment-card-id {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
+    border: 0.0625em solid #ddd;
+    padding: 0.625em;
+    margin: 0.625em;
     background-color: #fbcdcd;
     border: #555;
     align-items: center;
     overflow: hidden;
     justify-content: center;
-    margin-bottom: 100px;
+    margin-bottom: 6.25em;
 }
 
-.shipment-card-id img{
-  height: auto;
-  width: 30%;
+.shipment-card-id img {
+    height: auto;
+    width: 3.75em;
 }
+
 .shipment-card-id span {
-    margin-bottom: 5px;
+    margin-bottom: 0.3125em;
     font-weight: bold;
-}   
-.shipment-card-id h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
 }
+
+.shipment-card-id h3 {
+    font-size: 1.125em;
+    margin-bottom: 0.3125em;
+}
+
 .shipment-card-id p {
-    font-size: 14px;
+    font-size: 0.875em;
     color: #555;
 }
 
-.shipment-card-id a{
+.shipment-card-id a {
     cursor: pointer;
 }
 
-.shipment-card-id input[type="number"],button[type="submit"] {
+.shipment-card-id input[type="number"],
+button[type="submit"] {
     width: 50%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.625em;
+    margin-bottom: 0.625em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.3125em;
 }
+
 .shipment-card-id button[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -195,22 +202,19 @@ footer {
     width: 50%;
 }
 
-
-
-
 /*add shipment css*/
 
 /* Style the form container */
 #shipmentForm {
-    max-width: 600px;
+    max-width: 37.5em;
     margin: 0 auto;
 }
 
 /* Style form elements */
 form {
     background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 1.25em;
+    border-radius: 0.3125em;
 }
 
 fieldset {
@@ -219,12 +223,12 @@ fieldset {
 
 legend {
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 0.625em;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125em;
     font-weight: bold;
 }
 
@@ -233,10 +237,10 @@ input[type="number"],
 input[type="file"],
 button[type="submit"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.625em;
+    margin-bottom: 0.625em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.3125em;
 }
 
 button[type="submit"] {
@@ -249,13 +253,13 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
- form textarea {
-    width: 100%; 
-    padding: 1em; 
-    margin-bottom: 1.5em; 
-    border: 0.1em solid #ccc; 
-    border-radius: 0.4em; 
-    resize: vertical; 
-    min-height: 6em; 
+form textarea {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.4em;
+    resize: vertical;
+    min-height: 6em;
     box-sizing: border-box;
 }
