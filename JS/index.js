@@ -50,6 +50,7 @@ function handleCardClick(shipmentId) {
             return response.json();
         })
         .then(data => {
+            
             // Fetch last bid for the shipment
             fetch(`http://54.220.202.86:8080/api/bids/shipment/${shipmentId}`)
                 .then(response => {
@@ -108,6 +109,8 @@ function AllShipments() {
 fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
+        const loader = document.querySelector('.loader');
+    loader.style.display = 'block';
         console.log(data)
         container.innerHTML = ""
         const cardContainer = document.createElement('div'); // Create a parent div for all cards
@@ -130,11 +133,13 @@ fetch(apiUrl)
                     handleCardClick(shipment.shipment.shipmentId);
                 });
             // Append the card to the parent div
+            loader.style.display = 'none';
             cardContainer.appendChild(card);
         });
         container.appendChild(Heading);
         // Append the parent div to the container
         container.appendChild(cardContainer);
+        loader.style.display = 'none';
     })
     .catch(error => console.error('Error fetching data:', error));
 }

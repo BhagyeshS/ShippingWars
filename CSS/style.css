@@ -2,6 +2,11 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
+.loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .navbar{
     position: -webkit-sticky;
 }
@@ -162,7 +167,7 @@ footer {
 .shipment-card-id span {
     margin-bottom: 5px;
     font-weight: bold;
-}
+}   
 .shipment-card-id h3 {
     font-size: 18px;
     margin-bottom: 5px;
