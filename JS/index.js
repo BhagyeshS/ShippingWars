@@ -124,9 +124,11 @@ fetch(apiUrl)
             card.innerHTML = `
                 <a>
                 <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345">
+                <div class="content">
                     <p><span>PickUp Date:</span>${shipment.shipment.shipmentDate}</p>
                     <p><span>Delivery Date:</span>${shipment.shipment.deliveryDate}</p>
                     <p><span>Max Bid Amount:</span> ${shipment.shipment.maxBidAmount}</p>
+                    </div>
                 </a>`;
 
                 card.addEventListener('click', () => {
