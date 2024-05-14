@@ -1,5 +1,4 @@
 document.querySelector('.navbar-toggle').addEventListener('click', function() {
-    console.log('Hamburger clicked'); // Check if this message appears in the console
     document.querySelector('.navbar-menu').classList.toggle('active');
 });
 
