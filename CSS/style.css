@@ -97,6 +97,10 @@ footer {
     justify-content: center;
 }
 
+.container-card{
+    margin-bottom: 3.75em;
+}
+
 .shipment-card {
     /* Vertically center the content */
     align-items: center;
@@ -107,7 +111,6 @@ footer {
     border: #555;
     align-items: center;
     overflow: hidden;
-    margin-bottom: 3.75em;
     border-radius: 0.3125em;
 }
 
@@ -120,6 +123,7 @@ footer {
 .shipment-card span {
     margin-bottom: 0.3125em;
     font-weight: bold;
+    color: rgb(73, 63, 63);
 }
 
 .shipment-image-id {
@@ -131,6 +135,16 @@ footer {
     height: auto;
     align-items: center;
     border-radius: 0.3125em;
+}
+
+.imagebox {
+    width: 100%; /* Ensure image takes full width of container */
+    overflow: hidden; /* Prevent image overflow */
+}
+
+.imagebox img {
+    width: 100%; /* Make sure all images fill their container */
+    height: 300px; /* Maintain aspect ratio */
 }
 
 .shipment-card h3 {

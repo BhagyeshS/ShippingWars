@@ -123,7 +123,9 @@ fetch(apiUrl)
             card.classList.add('shipment-card');
             card.innerHTML = `
                 <a>
+                <div class="imagebox">
                 <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345">
+                </div>
                 <div class="content">
                     <p><span>PickUp Date:</span>${shipment.shipment.shipmentDate}</p>
                     <p><span>Delivery Date:</span>${shipment.shipment.deliveryDate}</p>
