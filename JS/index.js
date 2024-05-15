@@ -72,17 +72,26 @@ function handleCardClick(shipmentId) {
                     const card = document.createElement('div');
                     card.classList.add('shipment-card-id');
                     card.innerHTML  = `
-                        <h2>Shipment Details</h2>
-                        <img src="${data.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345" class="shipment-image-id">
+                        <h1>Shipment Details</h1>
+                        <div class="shipment-id">
+                        <div class="imageid">
+                        <img src="${data.shipment.imageUrl}" alt="Uploaded Image" class="shipment-image-id">
+                        </div>
+                        <div class="shipment-details">
                         <p><span>PickUp Date:</span>${data.shipment.shipmentDate}</p>
                     <p><span>Delivery Date:</span>${data.shipment.deliveryDate}</p>
                     <p><span>Max Bid Amount:</span> ${data.shipment.maxBidAmount}</p>
                     <p><span>Pickup Address:</span> ${data.originAddress.streetAddress} ${data.originAddress.city} ${data.originAddress.state}</p>
+                  
                     <p><span>Delivery Address:</span> ${data.destinationAddress.streetAddress} ${data.destinationAddress.city} ${data.destinationAddress.state}</p>
+                    </div>
+                    </div>
+                    <div class="bid-details">
                         <p>Last Bid: ${bids.length > 0 ? bids[bids.length - 1].bidAmount : 'No bids yet'}</p>
                         <h3>New Bid</h3>
                         <input type="number" id="bidAmount" placeholder="Enter Bid Amount" min="0"> <!-- Set min attribute to 0 -->
                         <button type="submit" onclick="submitBid('${data.shipment.shipmentId}', document.getElementById('bidAmount').value)" ${lastBidAmount > 0 ? `` : `disabled`}>Bid</button>
+                        </div>
                     `;
                     container.appendChild(card);
                     document.getElementById('bidAmount').addEventListener('input', function() {
@@ -143,4 +152,4 @@ fetch(apiUrl)
     .catch(error => console.error('Error fetching data:', error));
 }
 
-AllShipments();
+

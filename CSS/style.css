@@ -8,77 +8,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-.navbar {
-    position: -webkit-sticky;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25em;
-    background-color: #282835;
-}
-
-.navbar-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    cursor: pointer;
-}
-
-.navbar-menu li {
-    margin-right: 1.25em;
-}
-
-.navbar-menu li a {
-    text-decoration: none;
-    color: white;
-}
-
-.navbar-toggle {
-    display: none;
-    cursor: pointer;
-}
-
-.bar {
-    width: 1.563em;
-    height: 0.1875em;
-    background-color: white;
-    margin: 0.313em 0;
-}
-
-@media screen and (max-width: 48em) {
-    .logo {
-        height: 3.75em;
-        width: 100%;
-    }
-
-    .navbar-menu {
-        display: none;
-    }
-
-    .navbar-menu.active {
-        display: flex;
-        flex-direction: column;
-        top: 100%;
-        left: 0;
-        position: relative;
-        box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-menu.active li {
-        margin-right: 0;
-        margin-top: 0.625em;
-    }
-
-    .navbar-toggle {
-        display: block;
-    }
-}
-
 /* footer*/
 footer {
     position: fixed;
@@ -134,7 +63,6 @@ footer {
 .shipment-card img {
     width: 100%;
     height: auto;
-    align-items: center;
     border-radius: 0.3125em;
 }
 
@@ -168,26 +96,25 @@ footer {
 }
 
 .shipment-card-id {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 0.0625em solid #ddd;
+    border: 2px solid #0b0b0b;
     padding: 0.625em;
     margin: 0.625em;
     background-color: #fbcdcd;
-    border: #555;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     overflow: hidden;
-    justify-content: center;
     margin-bottom: 6.25em;
 }
 
-.shipment-card-id img {
-    height: auto;
-    width: 30%;
+.shipment-details{
+    text-align: left;
+    margin-top: 20px;
+    font-size: 20px;
 }
-
+.bid-details{
+    justify-content: center;
+}
 .shipment-card-id span {
     margin-bottom: 0.3125em;
     font-weight: bold;
@@ -203,10 +130,28 @@ footer {
     color: #555;
 }
 
-.shipment-card-id a {
-    cursor: pointer;
+.shipment-card-id .shipment-id{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
+.imageid{
+    display: flex;
+    align-items: center;
+
+    height: auto;
+}
+@media screen and (max-width: 768px) {
+    .shipment-card-id img {
+        max-width: 100%;
+        height: auto; /* Limit image width on larger screens */
+    }
+    .shipment-id{
+        flex-direction: column;
+    }
+}
 .shipment-card-id input[type="number"],
 button[type="submit"] {
     width: 50%;
