@@ -16,17 +16,61 @@ fetch(apiUrl)
         data.map(shipment => {
             const card = document.createElement('div');
             card.classList.add('shipment-card');
-            card.innerHTML = `
-                <a>
-                <div class="imagebox">
-                <img src="${shipment.shipment.imageUrl}" alt="Uploaded Image" width="460" height="345">
-                </div>
-                <div class="content">
-                    <p><span>PickUp Date:</span>${shipment.shipment.shipmentDate}</p>
-                    <p><span>Delivery Date:</span>${shipment.shipment.deliveryDate}</p>
-                    <p><span>Max Bid Amount:</span> ${shipment.shipment.maxBidAmount}</p>
-                    </div>
-                </a>`;
+            // Assuming 'shipment' is available in the current context
+
+// Create the anchor element
+const anchor = document.createElement('a');
+anchor.href = "#";
+
+// Create the imagebox div
+const imagebox = document.createElement('div');
+imagebox.classList.add('imagebox');
+
+// Create the image element
+const image = document.createElement('img');
+image.src = shipment.shipment.imageUrl;
+image.alt = 'Uploaded Image';
+image.width = '460';
+image.height = '345';
+
+// Append the image to the imagebox
+imagebox.appendChild(image);
+
+// Create the content div
+const content = document.createElement('div');
+content.classList.add('content');
+
+// Create span elements for shipment details
+const pickupDateSpan = document.createElement('span');
+pickupDateSpan.textContent = 'PickUp Date:';
+const pickupDate = document.createElement('p');
+pickupDate.appendChild(pickupDateSpan);
+pickupDate.innerHTML += shipment.shipment.shipmentDate;
+
+const deliveryDateSpan = document.createElement('span');
+deliveryDateSpan.textContent = 'Delivery Date:';
+const deliveryDate = document.createElement('p');
+deliveryDate.appendChild(deliveryDateSpan);
+deliveryDate.innerHTML += shipment.shipment.deliveryDate;
+
+const maxBidAmountSpan = document.createElement('span');
+maxBidAmountSpan.textContent = 'Max Bid Amount:';
+const maxBidAmount = document.createElement('p');
+maxBidAmount.appendChild(maxBidAmountSpan);
+maxBidAmount.innerHTML += shipment.shipment.maxBidAmount;
+
+// Append paragraphs to content div
+content.appendChild(pickupDate);
+content.appendChild(deliveryDate);
+content.appendChild(maxBidAmount);
+
+// Append imagebox and content to anchor
+anchor.appendChild(imagebox);
+anchor.appendChild(content);
+
+// Append anchor to card element
+card.appendChild(anchor);
+
 
                 card.addEventListener('click', () => {
                     handleCardClick(shipment.shipment.shipmentId);

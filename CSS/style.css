@@ -167,7 +167,9 @@ button[type="submit"] {
     cursor: pointer;
     width: 50%;
 }
-
+a{
+    text-decoration: none;
+}
 /*add shipment css*/
 
 /* Style the form container */
