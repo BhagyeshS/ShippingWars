@@ -8,7 +8,7 @@ function handleCardClick(shipmentId) {
             return response.json();
         })
         .then(data => {
-            
+
             // Fetch last bid for the shipment
             fetch(`http://54.220.202.86:8080/api/bids/shipment/${shipmentId}`)
                 .then(response => {
@@ -30,16 +30,16 @@ function handleCardClick(shipmentId) {
                     container.innerHTML = "";
                     const card = document.createElement('div');
                     card.classList.add('shipment-card-id');
-                
+
                     // Create heading
                     const heading = document.createElement('h1');
                     heading.textContent = 'Shipment Details';
                     container.appendChild(heading);
-                
+
                     // Create shipment ID section
                     const shipmentIdDiv = document.createElement('div');
                     shipmentIdDiv.classList.add('shipment-id');
-                
+
                     // Create image container
                     const imageDiv = document.createElement('div');
                     imageDiv.classList.add('imageid');
@@ -49,7 +49,7 @@ function handleCardClick(shipmentId) {
                     image.classList.add('shipment-image-id');
                     imageDiv.appendChild(image);
                     shipmentIdDiv.appendChild(imageDiv);
-                
+
                     // Create shipment details container
                     const shipmentDetailsDiv = document.createElement('div');
                     shipmentDetailsDiv.classList.add('shipment-details');
@@ -69,7 +69,7 @@ function handleCardClick(shipmentId) {
                     deliveryAddress.innerHTML = `<span>Delivery Address:</span>${data.destinationAddress.streetAddress} ${data.destinationAddress.city} ${data.destinationAddress.state}`;
                     shipmentDetailsDiv.appendChild(deliveryAddress);
                     shipmentIdDiv.appendChild(shipmentDetailsDiv);
-                
+
                     // Create bid details section
                     const bidDetailsDiv = document.createElement('div');
                     bidDetailsDiv.classList.add('bid-details');
@@ -88,30 +88,46 @@ function handleCardClick(shipmentId) {
                     const bidButton = document.createElement('button');
                     bidButton.type = 'submit';
                     bidButton.textContent = 'Bid';
-                    bidButton.onclick = function() {
-                        submitBid(data.shipment.shipmentId, document.getElementById('bidAmount').value);
+                    bidButton.onclick = function () {
+                        const bidAmount = parseInt(document.getElementById('bidAmount').value);
+                        if (bids.length = 0) {
+                            if (bidAmount < maxBidAmount) {
+                                submitBid(data.shipment.shipmentId, bidAmount);
+                            }
+                            else {
+                                alert("Bid amount must be less than the max bid amount.")
+                            }
+                        }
+                        else {
+                            if (bidAmount < lastBidAmount) {
+                                if (bidAmount > 0) {
+                                    submitBid(data.shipment.shipmentId, bidAmount);
+                                }
+                                else {
+                                    alert("Please place a proper bid")
+                                }
+                            } else {
+                                alert("Bid amount must be less than the last bid amount.");
+                            }
+                        }
                     };
-                    if (lastBidAmount <= 0) {
-                        bidButton.disabled = true;
-                    }
+                    //     if (lastBidAmount==0){
+                    //         bidButton.disabled=false;
+                    //     }
+                    //     else{
+                    //     if (lastBidAmount <= 0) {
+                    //         bidButton.disabled = true;
+                    //     }
+                    // }
                     bidDetailsDiv.appendChild(bidButton);
-                
+
                     // Append bid details to main container
                     card.appendChild(shipmentIdDiv);
                     card.appendChild(bidDetailsDiv);
-                
+
                     // Append main container to the body or any desired parent element
-                    
+
                     container.appendChild(card);
-                    document.getElementById('bidAmount').addEventListener('input', function() {
-                        const bidInput = parseInt(this.value);
-                        const bidButton = document.querySelector('.shipment-card-id button[type="submit"]');
-                        if (bidInput >= lastBidAmount || bidInput>maxBidAmount || bidInput < 0) {
-                            bidButton.disabled = true;
-                        } else {
-                            bidButton.disabled = false;
-                        }
-                    });
                 })
                 .catch(error => console.error('Error fetching bids:', error));
         })
