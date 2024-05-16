@@ -5,6 +5,7 @@
     <!-- ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/home.css">
     <link rel="stylesheet" href="./CSS/navbar.css">
     <link rel="stylesheet" href="./CSS/style.css">
     <link rel="stylesheet" href="./CSS/popup.css">
@@ -18,7 +19,7 @@
                 <img src="./assets/image/logo.png" height="90vh" class="logo"  alt="">
             </div>
             <ul class="navbar-menu">
-                <li href="./HTML/home.html"><a>Home</a></li>
+                <li onclick="createHomePage()"><a>Home</a></li>
                 <li onclick="AllShipments()"><a>Show Shipments</a></li>
                 <li onclick="createShipmentForm()"><a>Add Shipments</a></li>  
             </ul>
@@ -31,9 +32,9 @@
     </nav>
     <div id="cards-container">
 
-        <div class="loader">
+        <!-- <div class="loader">
             <img src="https://s3instancepro.s3.eu-west-1.amazonaws.com/image/loader.gif" alt="Loader">
-        </div>
+        </div> -->
     </div>
 
     
@@ -49,6 +50,7 @@
     <footer>
         <p>&copy; 2024 ShippingWars. All rights reserved..</p>
     </footer>
+    <script src="./JS/home.js"></script>
     <script src="./JS/navbar.js"></script>
     <script src="./JS/index.js"></script>
     <script src="./JS/shipment.js"></script>

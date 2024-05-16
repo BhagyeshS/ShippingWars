@@ -1,4 +1,4 @@
-.container {
+.home-container {
     padding: 100px;
     padding-bottom: 200px;
     text-align: center;
@@ -9,15 +9,15 @@
     background-position: center; /* This centers the background image */
     background-repeat: no-repeat; 
 }
-p {
+.home-para {
     font-size: 2rem;
 }
-h1 {
+.home-h1 {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 20px; /* Add margin to separate from the buttons */
 }
-button {
+.button-select {
     padding: 10px 30px; /* Adjust button padding for better spacing */
     font-size: 20px;
     margin-top: 10px; /* Add margin to the top of buttons */
@@ -40,14 +40,14 @@ span{
 .shipper{
     background-color: #51CFED;
 }
-span {
+.home-style {
     font-weight: bold;
 }
 @media screen and (max-width: 768px) { /* Adjustments for smaller screens */
     .container {
         padding: 30px;
     }
-    p, h1, button {
+    .home-para, .home-h1, .button-select {
         font-size: 1.5rem; /* Reduce font sizes */
     }
 }
