@@ -14,7 +14,7 @@ function createHomePage() {
     
     const paragraph2 = document.createElement('p');
     paragraph2.classList.add('home-para');
-    paragraph2.innerHTML = 'Do you want to continue as <span class="home-style">Customer</span> or <span>Shipper</span>';
+    paragraph2.innerHTML = 'Do you want to continue as <span class="home-style">Customer</span> or <span class="home-style">Shipper</span>';
 
     const buttonsDiv = document.createElement('div');
     buttonsDiv.classList.add('buttons');
