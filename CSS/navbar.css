@@ -53,9 +53,15 @@
         display: flex;
         flex-direction: column;
         top: 100%;
+        position: absolute;
+        top: 70px;
         left: 0;
-        position: relative;
-        box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.1);
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        z-index: 1;
+        align-items: center;
+        background-color: #282835;
     }
 
     .navbar-menu.active li {

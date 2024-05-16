@@ -23,6 +23,7 @@ button {
     margin-top: 10px; /* Add margin to the top of buttons */
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 span{
     color: #FF3E41;

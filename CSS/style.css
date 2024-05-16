@@ -231,3 +231,44 @@ form textarea {
     min-height: 6em;
     box-sizing: border-box;
 }
+
+
+/* @media screen and (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .burger {
+      display: flex;
+    }
+  
+    .burger.active .line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+  
+    .burger.active .line:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .burger.active .line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -8px);
+    }
+  
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      background-color: #333;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  } */
+  
