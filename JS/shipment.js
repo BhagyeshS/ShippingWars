@@ -90,12 +90,13 @@ function handleCardClick(shipmentId) {
                     bidButton.textContent = 'Bid';
                     bidButton.onclick = function () {
                         const bidAmount = parseInt(document.getElementById('bidAmount').value);
-                        if (bids.length = 0) {
-                            if (bidAmount < maxBidAmount) {
+                        if (bids.length === 0) { // No bids placed yet
+                            if (bidAmount > 0 && bidAmount < maxBidAmount) {
                                 submitBid(data.shipment.shipmentId, bidAmount);
-                            }
-                            else {
-                                alert("Bid amount must be less than the max bid amount.")
+                            } else {
+                                if (bidAmount <= 0) {
+                                    alert("Please place a bid greater than 0.");
+                                } 
                             }
                         }
                         else {
