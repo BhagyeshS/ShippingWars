@@ -88,7 +88,7 @@ function submitForm() {
                 })
                   .then(response => {
                     if (response.ok) {
-                      alert('Shipment created successfully!');
+                      openModal('Shipment created successfully!');
                       resolve();
                     } else {
                       throw new Error('Error creating shipment');
@@ -96,7 +96,7 @@ function submitForm() {
                   })
                   .catch(error => {
                     console.error('Error:', error);
-                    alert('Error creating shipment');
+                    openModal('Error creating shipment');
                     reject(error);
                   });
               })
@@ -112,7 +112,7 @@ function submitForm() {
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("An error occurred while submitting the form");
+        openModal("An error occurred while submitting the form");
         reject(error);
       });
   });

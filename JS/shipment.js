@@ -15,6 +15,9 @@ function handleCardClick(shipmentId) {
                     if (!response.ok) {
                         if (response.status === 404) {
                             // Handle case where no bids are posted
+                            function bidss(){
+
+                            }
                             return [];
                         }
                         throw new Error('Network response was not ok');
@@ -24,7 +27,7 @@ function handleCardClick(shipmentId) {
                 .then(bids => {
                     // const lastBidAmount=bids.length > 0 ? bids[bids.length - 1].bidAmount: 0
                     // Display shipment details and last bid
-                    const lastBidAmount = bids.length > 0 ? bids[bids.length - 1].bidAmount : 0;
+                    const lastBidAmount = bids.length > 0 ? bids[bids.length - 1].bidAmount:0;
                     console.log(data);
                     console.log(bids);
                     container.innerHTML = "";
@@ -88,15 +91,15 @@ function handleCardClick(shipmentId) {
                     const bidButton = document.createElement('button');
                     bidButton.type = 'submit';
                     bidButton.textContent = 'Bid';
+                    const maxbid=data.shipment.maxBidAmount;
+                    console.log(maxbid)
                     bidButton.onclick = function () {
                         const bidAmount = parseInt(document.getElementById('bidAmount').value);
-                        if (bids.length === 0) { // No bids placed yet
-                            if (bidAmount > 0 && bidAmount < maxBidAmount) {
+                        if (bids === 0) {
+                            if (bidAmount > 0 && bidAmount < maxbid) {
                                 submitBid(data.shipment.shipmentId, bidAmount);
                             } else {
-                                if (bidAmount <= 0) {
-                                    alert("Please place a bid greater than 0.");
-                                } 
+                                openModal("Please place a bid greater than 0.");
                             }
                         }
                         else {
@@ -105,10 +108,10 @@ function handleCardClick(shipmentId) {
                                     submitBid(data.shipment.shipmentId, bidAmount);
                                 }
                                 else {
-                                    alert("Please place a proper bid")
+                                    openModal("Please place a proper bid")
                                 }
                             } else {
-                                alert("Bid amount must be less than the last bid amount.");
+                                openModal("Bid amount must be less than the last bid amount.");
                             }
                         }
                     };

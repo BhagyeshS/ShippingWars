@@ -16,7 +16,7 @@ function submitBid(shipmentId, bidAmount) {
     .then(response => {
         if (response.ok) {
             console.log('Bid placed successfully');
-            alert('Bid placed successfully!');
+            openModal('Bid placed successfully!');
             // Optionally, you can update the UI to reflect the bid placement
         } else {
             console.error('Failed to place bid');

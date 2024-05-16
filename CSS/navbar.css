@@ -47,6 +47,7 @@
 
     .navbar-menu {
         display: none;
+        transition: opacity 0.5s ease, visibility 0.5s ease; 
     }
 
     .navbar-menu.active {
@@ -62,11 +63,13 @@
         z-index: 1;
         align-items: center;
         background-color: #282835;
+        transition: ease-in-out 1s;
     }
 
     .navbar-menu.active li {
         margin-right: 0;
         margin-top: 0.625em;
+        transition: ease-in-out 1s;
     }
 
     .navbar-toggle {
