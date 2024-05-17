@@ -1,3 +1,26 @@
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+function openModal(message) {
+    var modelDiv = document.getElementById("model-inner");
+    var oldchild = document.getElementById("old-child");
+   
+    const data = document.createElement("div");
+    data.id = "old-child";
+    data.textContent = message;
+    modelDiv.replaceChild(data, oldchild);
+    modal.style.display = "block";
+  }
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+   
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
 function handleCardClick(shipmentId) {
     // Fetch data for the clicked shipment
     fetch(`http://54.220.202.86:8080/api/shipments/${shipmentId}`)
@@ -15,9 +38,6 @@ function handleCardClick(shipmentId) {
                     if (!response.ok) {
                         if (response.status === 404) {
                             // Handle case where no bids are posted
-                            function bidss(){
-
-                            }
                             return [];
                         }
                         throw new Error('Network response was not ok');
@@ -93,6 +113,7 @@ function handleCardClick(shipmentId) {
                     bidButton.textContent = 'Bid';
                     const maxbid=data.shipment.maxBidAmount;
                     console.log(maxbid)
+                    console.log(lastBid)
                     bidButton.onclick = function () {
                         const bidAmount = parseInt(document.getElementById('bidAmount').value);
                         if (bids === 0) {
