@@ -1,5 +1,6 @@
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
+
 function openModal(message) {
     var modelDiv = document.getElementById("model-inner");
     var oldchild = document.getElementById("old-child");
@@ -113,7 +114,7 @@ function handleCardClick(shipmentId) {
                     bidButton.textContent = 'Bid';
                     const maxbid=data.shipment.maxBidAmount;
                     console.log(maxbid)
-                    console.log(lastBid)
+                    console.log(lastBidAmount)
                     bidButton.onclick = function () {
                         const bidAmount = parseInt(document.getElementById('bidAmount').value);
                         if (bids === 0) {
@@ -129,9 +130,10 @@ function handleCardClick(shipmentId) {
                                     submitBid(data.shipment.shipmentId, bidAmount);
                                 }
                                 else {
-                                    openModal("Please place a proper bid")
+                                    alert("Please place a proper bid")
                                 }
                             } else {
+                                console.log("hii")
                                 openModal("Bid amount must be less than the last bid amount.");
                             }
                         }
