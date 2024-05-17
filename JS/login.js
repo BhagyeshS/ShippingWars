@@ -9,10 +9,6 @@ export async function parseTokenFromUrl() {
     return code;
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     checkAndSetToken();
-// });
-
 const fetchOptions = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -22,28 +18,38 @@ const fetchOptions = {
 
 
 export async function login() {
-    // let username;
-    // let useremail;
-    // let userDiv = document.getElementById("userName");
-    // let userimage = document.getElementById("user-img");
-    // let userimage1 = document.getElementById("user-img1");
 
-    fetch(`https://api.github.com/user`, {
+    fetch(`https://api.github.com/user/emails`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
     })
-        .then((res) => res.json())
+        .then((res) => {
+            // Check if the response status is OK (status code 200)
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+        })
         .then((data) => {
-            // username = data.name ? data.name : "Profile";
-            // useremail = data.email ? data.email : data.login;
-            // localStorage.setItem("username", username);
-            // localStorage.setItem("userEmail", useremail);
-            // userDiv.innerText = localStorage.getItem("username");
-            // userimage.src = data.avatar_url;
-            // userimage1.src = data.avatar_url;
-            console.log(data);
+            // Log the entire response to debug
+            console.log("Full response data:", data);
+
+            // Check if data is an array and has at least one element
+            if (Array.isArray(data) && data.length > 0) {
+                // Extract the first email from the response
+                const useremail = data[0].email;
+
+                // Store the first email in localStorage
+                localStorage.setItem("userEmail", useremail);
+                console.log("First email stored in localStorage:", useremail);
+            } else {
+                console.error("No emails found in the response or response is not an array");
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching emails:", error);
         });
 
     // let saved = false;
@@ -68,22 +74,22 @@ export async function login() {
     //         }),
     //     };
 
-        // // Send the POST request
-        // fetch(`${APIURL}employees`, requestBody)
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             // openModal("Failed to add use");
-        //             throw new Error("Failed to add user");
-        //         }
-        //         return response.json();
-        //     })
-        //     .then((data) => {
-        //         // openModal("User Added successfully:");
-        //         loadEventsPage();
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error creating employee", error);
-        //     });
+    // // Send the POST request
+    // fetch(`${APIURL}employees`, requestBody)
+    //     .then((response) => {
+    //         if (!response.ok) {
+    //             // openModal("Failed to add use");
+    //             throw new Error("Failed to add user");
+    //         }
+    //         return response.json();
+    //     })
+    //     .then((data) => {
+    //         // openModal("User Added successfully:");
+    //         loadEventsPage();
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error creating employee", error);
+    //     });
     // }
 }
 
@@ -113,9 +119,6 @@ export async function checkAndSetToken() {
         // loadLogin();
     }
 }
-
-// Call the function
-// checkAndSetToken();
 
 
 async function getTokenFromCode(code) {

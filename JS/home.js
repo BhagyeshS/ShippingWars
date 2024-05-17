@@ -12,13 +12,13 @@ async function start() {
         console.log("Please Redirect Me Baby");
         if (localStorage.getItem('flag') == 0) {
 
-           login();
+           await login();
 
             console.log("customer")
         }
         else
         {
-            login();
+            await login();
         
             console.log("shipper")
         }
